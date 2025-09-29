@@ -3,27 +3,27 @@ const checkBtn = document.getElementById("check-btn");
 const clearBtn = document.getElementById("clear-btn");
 const resultsDiv = document.getElementById("results-div");
 
-// Regex for Philippine numbers (09XXXXXXXXX or +639XXXXXXXXX)
-const validPHNumber = /^(?:\+63|0)9\d{9}$/;
+// Regex: Valid PH number formats (e.g., 0917..., +63917..., 917...)
+const phRegex = /^(?:\+639|09)\d{9}$/;
 
 checkBtn.addEventListener("click", () => {
-  const inputVal = userInput.value.trim();
+  const input = userInput.value.trim();
 
-  if (inputVal === "") {
+  if (!input) {
     alert("Please provide a phone number");
     return;
   }
 
-  if (validPHNumber.test(inputVal)) {
-    resultsDiv.textContent = `✅ Valid PH number: ${inputVal}`;
-    resultsDiv.style.color = "green";
+  if (phRegex.test(input)) {
+    resultsDiv.textContent = `✅ Valid Philippine phone number: ${input}`;
+    resultsDiv.style.color = "#4caf50";
   } else {
-    resultsDiv.textContent = `❌ Invalid PH number: ${inputVal}`;
-    resultsDiv.style.color = "red";
+    resultsDiv.textContent = `❌ Invalid phone number format.`;
+    resultsDiv.style.color = "#f44336";
   }
 });
 
 clearBtn.addEventListener("click", () => {
-  resultsDiv.textContent = "";
   userInput.value = "";
+  resultsDiv.textContent = "";
 });
